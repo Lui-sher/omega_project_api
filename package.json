@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-omega",
+  "version": "1.0.0",
+  "description": "poner en practica los conocimientos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Luis Hernan Martelo Hernandez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
