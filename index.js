@@ -15,8 +15,14 @@ const server = http.createServer((req, res) => {
 			}
 		)
 	} else if (req.url === "/about"){
-		res.writeHead(200, {'Content-Type':'text/html'})
-		res.end('<h1>This Is About</h1>')
+		fs.readFile(
+			path.join(__dirname, 'public', 'about.html' ),   //archivo externo
+			(err, content) => {
+				if (err) throw err;
+				res.writeHead(200, {'Content-Type':'text/html'})
+				res.end(content)
+			}
+		)
 
 	} else {
 		res.writeHead(200, {'Content-Type':'text/html'})
