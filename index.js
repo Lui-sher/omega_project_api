@@ -1,36 +1,28 @@
-const http = require("http");
 const fs = require("fs");
 const path = require("path")
+const express = require("express")
+const app = express()
 
-
-const server = http.createServer((req, res) => {
-	
-	if (req.url === "/"){
-		fs.readFile(
-			path.join(__dirname, 'public', 'homepage.html' ),   //archivo externo
-			(err, content) => {
-				if (err) throw err;
-				res.writeHead(200, {'Content-Type':'text/html'})
-				res.end(content)
-			}
-		)
-	} else if (req.url === "/about"){
-		fs.readFile(
-			path.join(__dirname, 'public', 'about.html' ),   //archivo externo
-			(err, content) => {
-				if (err) throw err;
-				res.writeHead(200, {'Content-Type':'text/html'})
-				res.end(content)
-			}
-		)
-
-	} else {
-		res.writeHead(200, {'Content-Type':'text/html'})
-		res.end('<h1>404 Not Found Page</h1>')
-
-	}
+app.use((req, res, next) => {
+    console.log('method: ',req.method)
+    console.log('ruta: ', req.path)
+	console.log(__dirname)
+    next()
 })
 
-const PORT = process.env.PORT || 5000
+app.get('/', (req, res)=>{
+	res.sendFile('./public/homepage.html', {root: __dirname})
+})
 
-server.listen(PORT, () => console.log("Server running on", PORT === 5000 ? "http://localhost:5000" : PORT))
+app.get('/about', (req, res)=>{
+	res.sendFile('./public/about.html', {root: __dirname})
+})
+
+app.use((req, res) => {  //esta es la construccion de una ruta por defecto en caso de hacer match con ninguna ruta definida y se debe crear al final de las otras rutas
+    res.status(404).sendFile('./public/404.html', {root: __dirname})
+})
+
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+    console.log("Server running on", PORT === 3000 ? "http://localhost:3000" : PORT)
+})
