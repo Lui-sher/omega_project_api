@@ -1,28 +1,28 @@
-const fs = require("fs");
-const path = require("path")
-const express = require("express")
-const app = express()
-
-app.use((req, res, next) => {
-    console.log('method: ',req.method)
-    console.log('ruta: ', req.path)
-	console.log(__dirname)
-    next()
-})
-
-app.get('/', (req, res)=>{
-	res.sendFile('./public/homepage.html', {root: __dirname})
-})
-
-app.get('/about', (req, res)=>{
-	res.sendFile('./public/about.html', {root: __dirname})
-})
-
-app.use((req, res) => {  //esta es la construccion de una ruta por defecto en caso de hacer match con ninguna ruta definida y se debe crear al final de las otras rutas
-    res.status(404).sendFile('./public/404.html', {root: __dirname})
-})
-
+const app  = require('./src/app.js')
+const { conn } = require('./src/db.js')
+/*** Estas dos lineas las requerimos solo una vez para crear las tablas en la base de datos***/
+const pokemonTable = require('./src/models/PokemonTable.js')  
+const PokemonTypesTable = require('./src/models/PokemonTypesTable.js')   
+/*********************************************************************************************/
 const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-    console.log("Server running on", PORT === 3000 ? "http://localhost:3000" : PORT)
-})
+
+async function main () {
+	
+	try {
+		await conn
+		.sync(
+			{ force: true }, //'force: true' para que las tablas se borren y se creen cada vez que abrimos el servidor, por ende se borran todos los datos creados anteriormente
+			console.log('Database connection has been established successfully.')
+		)
+		.then(() => {
+			app.listen(PORT, () => {
+				console.log("Server running on", PORT === 3000 ? "http://localhost:3000" : PORT)
+			})
+		})
+	} catch (error) {
+		console.error('Unable to connect to the database:', error);
+	}
+}
+
+//sequelize.close() comando para cerrar la conexion
+main();
