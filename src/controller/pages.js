@@ -20,7 +20,18 @@ const showAboutPage = async (req, res) => {
       }
     }
 
+const notFoundPage = async (req, res) => {
+  try {
+    res.sendFile('./404.html', {root: root})
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+}
+
 module.exports = {
     showHomePage,
     showAboutPage,
+    notFoundPage,
 }

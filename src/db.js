@@ -15,7 +15,7 @@ const basename = path.basename(__filename);
 const modelDefiners = [];
 
 // filtramos todos los archivos de la carpeta 'models' que cumplan la condicion estructural de los nombres de los modelos,
-// y agragarlos a un array, con el fin de hacer el proyecto escalable. 
+// y agragarlos a un array, con el fin de hacer el proyecto esccalable. 
 // Ej: si mas adelante creamos otro modelo de tabla, este se agregará automaticamente
 fs.readdirSync(path.join(__dirname, '/models'))
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
@@ -39,6 +39,6 @@ PokemonTable.belongsToMany(PokemonTypesTable, {through: "PokemonXTypes"});
 PokemonTypesTable.belongsToMany(PokemonTable, {through: "PokemonXTypes"});
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+  ...sequelize.models, // para poder importar los modelos así: const { PokemonTable, PokemonTypesTable } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
 };

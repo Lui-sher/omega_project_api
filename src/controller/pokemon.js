@@ -1,19 +1,13 @@
-const root = __dirname.slice(0, -11) + '/public'
-
-const homePageDev = (req, res) => {
-    res.sendFile('./homepage.html', {root: root})
-}
-
-const aboutPageDev = (req, res) => {
-    res.sendFile('./about.html', {root: root})
-}
-
-const notFoundPage = (req, res) => {
-    res.status(404).sendFile('./404.html', {root: root})
-}
+const getAllPokemon = async (req, res) => {
+    try {
+      res.send('all pokemon connected')
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
 
 module.exports = {
-    homePageDev,
-    aboutPageDev,
-    notFoundPage,
+    getAllPokemon,
 }
