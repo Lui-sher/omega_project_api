@@ -1,13 +1,9 @@
 const app  = require('./src/app.js')
 const { conn } = require('./src/db.js')
-/*** Estas dos lineas las requerimos solo una vez para crear las tablas en la base de datos***/
-const pokemonTable = require('./src/models/PokemonTable.js')  
-const PokemonTypesTable = require('./src/models/PokemonTypesTable.js')   
-/*********************************************************************************************/
+
 const PORT = process.env.PORT || 3000
 
 async function main () {
-	
 	try {
 		await conn
 		.sync(
@@ -24,5 +20,7 @@ async function main () {
 	}
 }
 
-//sequelize.close() comando para cerrar la conexion
+//await conn.sync()  //comando para sincronizar todos los modelos de tablas en la Base de Datos
+//await conn.close() //comando para cerrar la conexion
+//await conn.drop()  //comando para borrar todas las tablas de los modelos creados aca en la Base de Datos
 main();
