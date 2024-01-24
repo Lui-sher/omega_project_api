@@ -1,7 +1,9 @@
 const { Sequelize } = require("sequelize")
+const Type = require("./models/TypeModel.js")
+const Pokemon = require("./models/PokemonModel.js");
+const Pokemon_Type = require("./models/PokemonModel.js");
+
 require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
 
 const { PGDATABASE_URL } = process.env;
 
@@ -10,35 +12,20 @@ const sequelize = new Sequelize( PGDATABASE_URL, {
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
 
-const basename = path.basename(__filename);
-
-const modelDefiners = [];
-
-// filtramos todos los archivos de la carpeta 'models' que cumplan la condicion estructural de los nombres de los modelos,
-// y agragarlos a un array, con el fin de hacer el proyecto esccalable. 
-// Ej: si mas adelante creamos otro modelo de tabla, este se agregará automaticamente
-fs.readdirSync(path.join(__dirname, '/models'))
-  .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-  .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, '/models', file)));
-  });
-
-// Injectamos la conexion (sequelize) a todos los modelos
-modelDefiners.forEach(model => model(sequelize));
-// Capitalizamos los nombres de los modelos ie: product => Product
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
-sequelize.models = Object.fromEntries(capsEntries);
+//Inyectamos la conexion sequelize en los modelos 
+Type(sequelize)  //se define la tabla types
+Pokemon(sequelize)  //se define la tabla pokemons
+Pokemon_Type(sequelize) //se define la tabla pokemon_type que será la relacion entre las tablas pokemons y types
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { PokemonTable, PokemonTypesTable } = sequelize.models
+const { type, pokemon } = sequelize.models
 
 // Relaciones entre las tablas
-PokemonTable.belongsToMany(PokemonTypesTable, {through: "PokemonXTypes"});
-PokemonTypesTable.belongsToMany(PokemonTable, {through: "PokemonXTypes"});
+pokemon.belongsToMany(type, {through: "pokemon_type"}); 
+type.belongsToMany(pokemon, {through: "pokemon_type"});
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { PokemonTable, PokemonTypesTable } = require('./db.js');
+  ...sequelize.models, // para poder importar los modelos así: const { Pokemon, Type } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
 };

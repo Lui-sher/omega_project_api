@@ -5,14 +5,16 @@ const {
 	pagesRouter,
 	pokemonRouter,
 	pokemonTypesRouter,
-	notFoundPage
+	dBConnectionRouter,
+	notFoundPage,
 } = require("./constants/constants")
 
 app.use(morgan('dev'))
 
 app.use('/', pagesRouter)
-app.use('/api/pokemon', pokemonRouter)
 app.use('/api/pokemonTypes', pokemonTypesRouter)
+app.use('/api/pokemon', pokemonRouter)
+app.use('/dbConnection', dBConnectionRouter)
 app.use(notFoundPage)
 
-module.exports = app 
+module.exports = app

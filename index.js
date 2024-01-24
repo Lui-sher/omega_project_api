@@ -1,17 +1,14 @@
 const app  = require('./src/app.js')
-const { conn } = require('./src/db.js')
-
+const { conn } = require("./src/db.js")
 const PORT = process.env.PORT || 3000
 
-async function main () {
+async function DbAndPort_Connect () {
 	try {
 		await conn
-		.sync(
-			{ force: true }, //'force: true' para que las tablas se borren y se creen cada vez que abrimos el servidor, por ende se borran todos los datos creados anteriormente
-			console.log('Database connection has been established successfully.')
-		)
+		.sync( console.log('Database connection has been established successfully.') )
 		.then(() => {
-			app.listen(PORT, () => {
+			app
+			.listen(PORT, () => {
 				console.log("Server running on", PORT === 3000 ? "http://localhost:3000" : PORT)
 			})
 		})
@@ -20,7 +17,4 @@ async function main () {
 	}
 }
 
-//await conn.sync()  //comando para sincronizar todos los modelos de tablas en la Base de Datos
-//await conn.close() //comando para cerrar la conexion
-//await conn.drop()  //comando para borrar todas las tablas de los modelos creados aca en la Base de Datos
-main();
+DbAndPort_Connect();

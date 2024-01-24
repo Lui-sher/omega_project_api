@@ -1,50 +1,19 @@
 GET http://localhost:3000/api/pokemonTypes
 
 ###
-GET http://localhost:3000/api/cursos/programacion?ordenar=vistas
+GET http://localhost:3000/api/pokemon
 
 ###
-GET http://localhost:3000/api/cursos/programacion/pyton
+GET http://localhost:3000/api/pokemon/db
 
 ###
-GET http://localhost:3000/api/cursos/programacion/javascript
+GET http://localhost:3000/api/pokemon/db/1025
 
 ###
-GET http://localhost:3000/api/cursos/programacion/javascript?ordenar=vistas
+GET http://localhost:3000/dbConnection/sync
 
 ###
-POST http://localhost:3000/api/cursos/programacion
-content-type: application/json
-
-{
-    "id": 4,
-    "titulo": "Aprende React.js",
-    "lenguaje": "javascript",
-    "vistas": 25,
-    "nivel": "basico"
-}
+GET http://localhost:3000/dbConnection/drop
 
 ###
-PUT http://localhost:3000/api/cursos/programacion/6
-content-type: application/json
-
-{
-    "id": 3,
-    "titulo": "Javascript Avanzado",
-    "lenguaje": "javascript",
-    "vistas": 20540,
-    "nivel": "avanzado"
-}
-
-###
-PATCH http://localhost:3000/api/cursos/programacion/1
-content-type: application/json
-
-{
-    "vistas": 2,
-    "titulo": "Aprende Javascript"
-}
-
-###
-DELETE http://localhost:3000/api/cursos/programacion/1
-
+DELETE http://localhost:3000/api/pokemon/deleteDexNum/5
