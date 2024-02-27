@@ -1,18 +1,19 @@
 const express = require('express')
 const pokemonRouter = express.Router()
 const {
-  getPokemons,
-  getAllPokemonDb,
-  getOnePokemon,
-  deletePokemonById, 
-  deletePokemonByDexNum, 
+	getOnePokemonApi,
+	getSeveralPokemon,
+	addPokemonToDb,
+  deletePokemonByIdDb,
+  deletePokemonByDexNumDb,
 } = require('../controller/pokemon.js')
 
-pokemonRouter.get('/get', getPokemons)           //obtenemos por defecto 20 pokemon de la api externa
-pokemonRouter.get('/get/:cantidad', getPokemons) //obtenemos de la api externa la cantidad de pokemon solicitada
-pokemonRouter.get('/db', getAllPokemonDb)        //obtenemos todos los datos disponibles en la base de datos
-pokemonRouter.get('/db/:dexNum', getOnePokemon)  //obtenemos el pokemon con numero de pokedex solicitado
-pokemonRouter.delete('/deleteId/:id', deletePokemonById) //borramos de la base de datos el pokemon con la id enviada
-pokemonRouter.delete('/deleteDexNum/:dexNum', deletePokemonByDexNum) //borramos de la BD el pokemon con el No. pokedex enviada
+pokemonRouter.get('/get_one_pokemon/:dexOrName', getOnePokemonApi) //busca por nombre o numero pokedex en la BD en su defecto en la PokeApi
+pokemonRouter.get('/get_several_pokemon', getSeveralPokemon) //se obtienen por defecto 20 pokemon
+pokemonRouter.get('/get_several_pokemon/:amount', getSeveralPokemon)// se obtiene la cantidad de pokemon solicitado
+//------------------------- Dev Mode -----------------------------------------
+pokemonRouter.get('/add_one_pokemon_to_db/:dex', addPokemonToDb) //agrega un pokemon aunque ya esté en la base de datos, duplicando la info
+pokemonRouter.delete('/delete_id_db/:id', deletePokemonByIdDb) //borra de la base de datos el pokemon con la id enviada
+pokemonRouter.delete('/delete_dexnum_db/:dexNum', deletePokemonByDexNumDb) //borra de la BD todos los datos referente al numero de pokedex
 
 module.exports = pokemonRouter

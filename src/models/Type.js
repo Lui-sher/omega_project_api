@@ -1,6 +1,6 @@
-const { DataTypes, Sequelize } = require("sequelize")
+const { DataTypes } = require("sequelize")
 
-const Type = (arg) => { arg.define('type', {
+const Type = (sequelize) => { sequelize.define('type', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,

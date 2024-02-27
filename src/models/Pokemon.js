@@ -1,8 +1,7 @@
-//const  sequelize  = require('../db.js')
 const { DataTypes } = require("sequelize")
 
 
-const Pokemon = (arg) => { arg.define('pokemon', {
+const Pokemon = (sequelize) => { sequelize.define('pokemon', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,

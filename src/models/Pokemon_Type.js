@@ -1,6 +1,4 @@
-const { DataTypes, Sequelize } = require("sequelize")
-
-const Pokemon_Type = (arg) => { arg.define('pokemon_type', {
+const Pokemon_Type = (sequelize) => { sequelize.define('pokemon_type', {
 	}, { timestamps: false })
 }
 

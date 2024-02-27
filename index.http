@@ -1,13 +1,14 @@
+GET http://localhost:3000/api/pokemon/get_one_pokemon/84
+
+###
+GET http://localhost:3000/api/pokemon/get_amount_pokemon
+
+###
+GET http://localhost:3000/api/pokemon/get_amount_pokemon/100
+
+###
 GET http://localhost:3000/api/pokemonTypes
 
-###
-GET http://localhost:3000/api/pokemon
-
-###
-GET http://localhost:3000/api/pokemon/db
-
-###
-GET http://localhost:3000/api/pokemon/db/1025
 
 ###
 GET http://localhost:3000/dbConnection/sync
@@ -16,4 +17,7 @@ GET http://localhost:3000/dbConnection/sync
 GET http://localhost:3000/dbConnection/drop
 
 ###
-DELETE http://localhost:3000/api/pokemon/deleteDexNum/5
+DELETE http://localhost:3000/api/pokemon/delete_id_db/7ef7b987-c3f4-40f7-8351-128e3adbe472
+
+###
+DELETE http://localhost:3000/api/pokemon/delete_dexnum_db/1
