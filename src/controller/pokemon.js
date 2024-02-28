@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");        //Opciones avanzadas para busquedas sequelize
 const { pokemon, type } = require('../db')
 
-const count = { num: 1 }
+const count = [1]
 
 /************************************Funciones internas************************************************/
 
@@ -171,8 +171,10 @@ const getOnePokemonApi = async (req, res) => {
 //function para OBTENER(GET) 20 pokemon por defecto buscando en la base de datos luego en la PokeApi
 const getSeveralPokemon = async (req, res) => {
 	const amount = Number(req.params.amount) || 20
-	const min = count.num
-	const max = count.num + amount - 1
+	const ip = req.connection.remoteAddress
+	console.log(ip)
+	const min = count[0]
+	const max = count[0] + amount - 1
 	for ( let i = min; i <= max; i++ ) {
 		console.log(`\n`)
 		const result = await findOnePokemonInDb(i)
@@ -182,7 +184,7 @@ const getSeveralPokemon = async (req, res) => {
 	}
 	const result = await findSeveralPokemonDexNumDb (min, max)
 
-	count.num = count.num + amount
+	count[0] = count[0] + amount
 	console.log(`\n`)
 	res.send(result)
 }
@@ -240,6 +242,7 @@ const deletePokemonByDexNumDb = async (req, res) => {
 }
 
 module.exports = {
+	count,
 	getOnePokemonApi,
 	getSeveralPokemon,
 	addPokemonToDb,
