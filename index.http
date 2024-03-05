@@ -1,14 +1,16 @@
-GET http://localhost:3000/api/pokemon/get_one_pokemon/84
+GET http://localhost:3000/api/pokemon/get_one_pokemon/400
 
 ###
-GET http://localhost:3000/api/pokemon/get_amount_pokemon
+GET http://localhost:3000/api/pokemon/get_several_pokemon
 
 ###
-GET http://localhost:3000/api/pokemon/get_amount_pokemon/100
+GET http://localhost:3000/api/pokemon/get_several_pokemon?amount=5&start=25
+
+###
+GET http://localhost:3000/api/pokemon/add_one_pokemon_to_db/1
 
 ###
 GET http://localhost:3000/api/pokemonTypes
-
 
 ###
 GET http://localhost:3000/dbConnection/sync
@@ -17,7 +19,28 @@ GET http://localhost:3000/dbConnection/sync
 GET http://localhost:3000/dbConnection/drop
 
 ###
-DELETE http://localhost:3000/api/pokemon/delete_id_db/7ef7b987-c3f4-40f7-8351-128e3adbe472
+DELETE http://localhost:3000/api/pokemon/delete_dexnum_db/0
 
 ###
-DELETE http://localhost:3000/api/pokemon/delete_dexnum_db/1
+DELETE http://localhost:3000/api/pokemon/delete_id_db/6934cba4-5444-44e7-95de-2621276040ff
+
+###
+POST http://localhost:3000/api/pokemon/post_custom_pokemon
+content-type: application/json
+
+{
+  "name": "pepito",
+	"image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/18.png",
+	"hp": 84,
+	"attack": 100,
+	"defense": 100,
+	"specialAttack": 100,
+	"specialDefense": 100,
+	"speed": 100,
+	"height": 100,
+	"weight": 100,
+	"types": [ "normal", "water" ]
+}
+
+###
+GET http://localhost:3000/api/pokemon/get_all_custom_pokemon

@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize")
+const { DataTypes, Sequelize } = require("sequelize")
 
 
 const Pokemon = (sequelize) => { sequelize.define('pokemon', {
@@ -8,7 +8,7 @@ const Pokemon = (sequelize) => { sequelize.define('pokemon', {
     primaryKey: true,
     allowNull: false
   },
-  name: {       //.name  (name name)
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -42,6 +42,9 @@ const Pokemon = (sequelize) => { sequelize.define('pokemon', {
   weight: {
     type: DataTypes.INTEGER,
   },
+	custom: {
+		type: DataTypes.BOOLEAN,
+	}
   }, {
     timestamps: false
   }

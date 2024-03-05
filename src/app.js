@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+
 const morgan = require("morgan")
 const { 
 	pagesRouter,
@@ -9,7 +10,8 @@ const {
 	notFoundPage,
 } = require("./constants/constants")
 
-app.use(morgan('dev'))
+app.use(morgan('dev'))   // nos muestra las caracteristicas de las Solicitudes hechas desde el cliente
+app.use(express.json())  //permite a Express analizar y usar el cuerpo(req.body) de la solicitud en formato .JSON 
 
 app.use('/', pagesRouter)
 app.use('/api/pokemonTypes', pokemonTypesRouter)

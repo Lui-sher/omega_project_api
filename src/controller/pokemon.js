@@ -1,8 +1,6 @@
 const { Op } = require("sequelize");        //Opciones avanzadas para busquedas sequelize
 const { pokemon, type } = require('../db')
 
-const count = [1]
-
 /************************************Funciones internas************************************************/
 
 // function para buscar el primer registro relacionado a un nombre o pokedex en la base de datos
@@ -79,12 +77,12 @@ const findOnePokemonInPokeApi = async ( dexOrName )=> {
 			speed: data.stats[5].base_stat,
 			height: data.height,
 			weight: data.weight,
-			types: data.types.map(e => e.type.name)
+			types: data.types.map(e => e.type.name),
 		}
 
 		const { 
 			name, image, dexNum, hp, attack, defense, specialAttack, 
-			specialDefense, speed, height, weight, types
+			specialDefense, speed, height, weight, types,
 		} = info
 
 		const onePokemon = await pokemon.create({
@@ -99,6 +97,7 @@ const findOnePokemonInPokeApi = async ( dexOrName )=> {
 				speed, 
 				height, 
 				weight,
+				custom: false,
 		})
 
 		const thePokemonType = await type.findAll({
@@ -139,59 +138,174 @@ const findSeveralPokemonDexNumDb = async (min, max) => {
 			]
 		})
 		if(!result[0]) return null
-		//console.log(`El pokemon con ID: ${min} ha sido encontrado en la Base de datos`)
+		
 		return result
+
 	} catch (error) {
 		console.log(error.message)
 	}
 }
+
+
+//Function para buscar un registro mediante el ID
+const findPokemonById = async ( id ) => {
+	try {
+		const result = await pokemon.findOne({
+			where: {
+				id
+			},
+			include: [
+				{
+					model: type,
+					attributes: ['name'],
+					through: {
+						attributes: [],
+					}
+				}
+			]
+		})
+		return result
+
+	} catch (error) {
+		console.log(error.message)
+	}
+}
+//
+
 /******************************************************************************************************/
 
-//------------------------------------Peticiones GET----------------------------------------------------
+//------------------------------------SOLICITUDES GET----------------------------------------------------
 
-//function para OBTENER(GET) un pokemon buscando primero en la base de datos luego en la PokeApi con el nombre o Pokedex
+//Solicitud para OBTENER(GET) un pokemon buscando primero en la base de datos luego en la PokeApi con el nombre o Pokedex
 const getOnePokemonApi = async (req, res) => {
-	const { dexOrName } = req.params
-	console.log(`\n`)
-	const result = await findOnePokemonInDb( dexOrName )
-	if( result ) {
+	try {
+		const { dexOrName } = req.params
 		console.log(`\n`)
-		res.send( result )
-	} else {
-		const result = await findOnePokemonInPokeApi( dexOrName )
-		console.log(`\n`)
-		if(result) res.send( result )
-		else {
-			console.log(` -> El pokemon ${dexOrName} no existe`)
-			res.send(` -> El nombre '${dexOrName}' no ha sido encontrado en la PokeApi, ¡¡Verificar nombre o numero de pokedex!!`)
-		}
+		const result = await findOnePokemonInDb( dexOrName )
+		if( result ) {
+			console.log(`\n`)
+			res.send( result )
+		} else {
+			const result = await findOnePokemonInPokeApi( dexOrName )
+			console.log(`\n`)
+			if(result) res.send( result )
+			else {
+				console.log(` -> El pokemon ${dexOrName} no existe`)
+				res.send(` -> El nombre '${dexOrName}' no ha sido encontrado en la PokeApi, ¡¡Verificar nombre o numero de pokedex!!`)
+			}
+		}		
+	} catch (error) {
+		res
+    .status(500)
+    .json({message: error.message})
 	}
+
 }
 
-//function para OBTENER(GET) 20 pokemon por defecto buscando en la base de datos luego en la PokeApi
+//Solicitud para OBTENER(GET) la cantidad solicitada por query o 20 pokemon por defecto buscando en la base de datos luego en la PokeApi
 const getSeveralPokemon = async (req, res) => {
-	const amount = Number(req.params.amount) || 20
-	const ip = req.connection.remoteAddress
-	console.log(ip)
-	const min = count[0]
-	const max = count[0] + amount - 1
-	for ( let i = min; i <= max; i++ ) {
-		console.log(`\n`)
-		const result = await findOnePokemonInDb(i)
-		if ( !result ) {
-			await findOnePokemonInPokeApi(i)
-		}
-	}
-	const result = await findSeveralPokemonDexNumDb (min, max)
+	try {
+		const amount = Number(req.query.amount) || 20
+		const start = Number(req.query.start) || 1
 
-	count[0] = count[0] + amount
-	console.log(`\n`)
-	res.send(result)
+		const min = start
+		const max = start + amount - 1
+		for ( let i = min; i <= max; i++ ) {
+			console.log(`\n`)
+			const result = await findOnePokemonInDb(i)
+			if ( !result ) {
+				await findOnePokemonInPokeApi(i)
+			}
+		}
+		const result = await findSeveralPokemonDexNumDb (min, max)
+		console.log(`\n`)
+		res.send(result)
+
+	} catch (error) {
+		res
+    .status(500)
+    .json({message: error.message})
+	}
+
 }
+
+
+//Solicitud (GET) trae todos los custom Pokemon
+const getAllCustomPokemon = async( req, res ) => {
+	try {
+		const result = await pokemon.findAll({
+			where: {
+				custom: true
+			},
+			include: [
+				{
+					model: type,
+					attributes: ['name'],
+					through: {
+						attributes: [],
+					}
+				}
+			]
+		})
+
+		res.send(result)
+
+	} catch (error) {
+		res
+    .status(500)
+    .json({message: error.message})
+	}
+
+}
+
 //------------------------------------------------------------------------------------------------------
 
+///////////////////////////////////////  SOLICITUDES POST  //////////////////////////////////////////////
 
-//******************************** Dev Mode *****************************
+// Solicitud para AGREGAR(POST) un nuevo dato para un pokemon creado manualmente (creado por el usuario) y agregarlo a la base de datos
+const postCustomPokemon = async (req, res) => {
+	try {
+		const customPokemon = req.body;
+		const { 
+			name, image, hp, attack, defense, specialAttack, 
+			specialDefense, speed, height, weight, types,
+		} = customPokemon
+
+		const onePokemon = await pokemon.create({
+				name, 
+				image, 
+				dexNum: null, 
+				hp, 
+				attack, 
+				defense, 
+				specialAttack, 
+				specialDefense, 
+				speed, 
+				height, 
+				weight,
+				custom: true
+		})
+
+		const thePokemonType = await type.findAll({
+			where: {name: types}
+		})
+
+		await onePokemon.addTypes(thePokemonType)
+		const result = await findPokemonById( onePokemon.dataValues.id )
+		res.send(result)
+
+	} catch (error) {
+		res
+    .status(500)
+    .json({message: error.message})
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//**************************************** Dev Mode ****************************************************
+
+//Function para OBTENER(GET) los datos de un pokemon y agregarlo a la base de datos duplicando la informacion si ya existia en al base de datos pero con un ID distinto 
 const addPokemonToDb = async ( req, res ) => {
 	try {
 		const { dex } = req.params
@@ -207,6 +321,7 @@ const addPokemonToDb = async ( req, res ) => {
   }
 }
 
+//Function para ELIMINAR(DELETE) los datos de un pokemon en la base de datos usando como base la ID del pokemon
 const deletePokemonByIdDb = async (req, res) => {
   try {
     const { id } = req.params
@@ -225,6 +340,7 @@ const deletePokemonByIdDb = async (req, res) => {
   }
 }
 
+//Function para ELIMINAR(DELETE) los datos de un pokemon en la base de datos usando como base la POKEDEX del pokemon
 const deletePokemonByDexNumDb = async (req, res) => {
   try {
     const { dexNum } = req.params
@@ -242,10 +358,11 @@ const deletePokemonByDexNumDb = async (req, res) => {
 }
 
 module.exports = {
-	count,
 	getOnePokemonApi,
 	getSeveralPokemon,
+  getAllCustomPokemon,
 	addPokemonToDb,
+	postCustomPokemon,
   deletePokemonByIdDb,
   deletePokemonByDexNumDb,
 }
