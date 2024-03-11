@@ -4,7 +4,7 @@ GET http://localhost:3000/api/pokemon/get_one_pokemon/400
 GET http://localhost:3000/api/pokemon/get_several_pokemon
 
 ###
-GET http://localhost:3000/api/pokemon/get_several_pokemon?amount=5&start=25
+GET http://localhost:3000/api/pokemon/get_several_pokemon?amount=10&start=400
 
 ###
 GET http://localhost:3000/api/pokemon/add_one_pokemon_to_db/1
@@ -25,7 +25,7 @@ DELETE http://localhost:3000/api/pokemon/delete_dexnum_db/0
 DELETE http://localhost:3000/api/pokemon/delete_id_db/6934cba4-5444-44e7-95de-2621276040ff
 
 ###
-POST http://localhost:3000/api/pokemon/post_custom_pokemon
+POST https://proyectomega-production.up.railway.app/api/pokemon/post_custom_pokemon
 content-type: application/json
 
 {

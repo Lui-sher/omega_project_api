@@ -4,6 +4,7 @@ const  pokemonTypesRouter  = require("../routes/pokemonTypes.js")
 const dBConnectionRouter = require("../routes/dbConnection.js")
 const { notFoundPage } = require("../controller/pages.js")
 
+
 module.exports = {
     pagesRouter,
     pokemonRouter,
