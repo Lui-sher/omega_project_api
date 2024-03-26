@@ -1,6 +1,6 @@
 const app  = require('./src/app.js')
 const { conn } = require("./src/db.js")
-const PORT = process.env.PORT || 3000
+const  PORT = process.env.PORT || 3000
 
 async function DbAndPort_Connect () {
 	try {

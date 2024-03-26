@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 </head>
 <body>
-    <h1>Welcome to Home</h1>
+    <h1>Welcome to Omega Project</h1>
+		<h3>Requests GET</h3>
+
+		<il>
+			<ol><a id='get_one_pokemon' href="javascript: window.open(url('get_one_pokemon/400'));"></a></ol>
+			<ol><a id='get_several_pokemon' href="javascript: window.open(url('get_several_pokemon'));"></a></ol>
+			<ol><a id='get_several_pokemon/' href="javascript: window.open(url('get_several_pokemon?amount=10&start=400'));"></a></ol>
+		</il>
+
+		<p></p>
     <button> <a href="/about">Go to About Page</a> </button>
 
+	<script>
+		const  PORT = window.location.href // -> http://localhost:3000/
+		//const URL = `${PORT}api/pokemon/${props}`;
+
+		function url (props) {
+			return `${PORT}api/pokemon/${props}`
+		}
+
+		document.getElementById('get_one_pokemon').innerText = url('get_one_pokemon/400');
+		document.getElementById('get_several_pokemon').innerText = url('get_several_pokemon');
+		document.getElementById('get_several_pokemon/').innerText = url('get_several_pokemon?amount=10&start=400');
+
+	</script>
 </body>
 </html>

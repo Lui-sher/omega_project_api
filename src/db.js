@@ -2,7 +2,6 @@ const { Sequelize } = require("sequelize")
 const Type = require("./models/Type.js")
 const Pokemon = require("./models/Pokemon.js");
 const Pokemon_Type = require("./models/Pokemon_Type.js");
-const { DataTypes } = require("sequelize")
 
 require('dotenv').config();
 
