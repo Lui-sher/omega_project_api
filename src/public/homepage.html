@@ -2,35 +2,175 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home Page</title>
 </head>
+
 <body>
-    <h1>Welcome to Omega Project</h1>
-		<h3>Requests GET</h3>
+	<h1>Omega Project Home Page Back-end</h1>
+	<h3>GET Requests</h3>
 
-		<il>
-			<ol><a id='get_one_pokemon' href="javascript: window.open(url('get_one_pokemon/400'));"></a></ol>
-			<ol><a id='get_several_pokemon' href="javascript: window.open(url('get_several_pokemon'));"></a></ol>
+		<ol>
+			<p>
+				Para hacer una ca get que nos permita obtener los datos de un pokemon especifico,
+				lo haremos usando la siguente URL y el numero de pokedex o nombre del pokemon al final de esta.
+			</p>
+			<h4>Ejemplos:</h4>
+			<ol><a id='get_one_pokemon_number' href="javascript: window.open(url('get_one_pokemon/400'));"></a></ol>
+			<ol><a id='get_one_pokemon_name' href="javascript: window.open(url('get_one_pokemon/pikachu'));"></a></ol>
+		</ol>
+		<ol>
+			<p>
+				Si deseamos hacer una peticion get que nos permita obtener los 20 primeros 
+				pokemon, lo haremos ando la siguiente URL.
+			</p>
+			<a id='get_several_pokemon' href="javascript: window.open(url('get_several_pokemon'));"></a>
+		</ol>
+		<ol>
+			<p>
+				Pero si lo que buscamos es hacer una peticion get para obtener una cantidad y un rango
+				especifico, lo haremos ando la URL siguente, sustituyendo los valores numericos
+				de "amount" que representa la cantidad que deseamos y "start" que representa desde donde 
+				iniciamos el rango deseado.
+			</p>
+			<h4>Ejemplo:</h4>
 			<ol><a id='get_several_pokemon/' href="javascript: window.open(url('get_several_pokemon?amount=10&start=400'));"></a></ol>
-		</il>
+		</ol>
 
-		<p></p>
-    <button> <a href="/about">Go to About Page</a> </button>
+		<ol>
+			<p>
+				Si necesitamos obtener todos los Pokémon creados por el usuario, lo deberemos hacer ando
+				la siguente URL:
+			</p>
+			<a id='get_all_custom_pokemon' href="javascript: window.open(url('get_all_custom_pokemon'));"></a>
+		</ol>
+
+
+	<h3>POST Requests</h3>
+		<ol>
+			<p>
+				Para enviar una solitud post, con intencion de crear un nuevo pokemon, se deberá enviar los datos
+				en el 'body' en formato '.json' a la siguiente URL con la estructura acontinuacion como ejemplo:
+			</p>
+			<a id='post_custom_pokemon' href="javascript: post('post_custom_pokemon');"></a>
+			<p>{</p>
+			<ol>"name": "gatito",</ol>
+			<ol>"image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/18.png",</ol>
+			<ol>"hp": 84,</ol>
+			<ol>"attack": 100,</ol>
+			<ol>"defense": 100,</ol>
+			<ol>"specialAttack": 100,</ol>
+			<ol>"specialDefense": 100,</ol>
+			<ol>"speed": 100,</ol>
+			<ol>"height": 100,</ol>
+			<ol>"weight": 100,</ol>
+			<ol>"types": [ "normal", "water" ]</ol>
+			<p>}</p>
+		</ol>
+
+
+	<h3>DELETE Requests</h3>
+	<ol>
+		<p>
+			Para eliminar algun Pokémon que se halle en la base de datos, ya sea original o creado por algun usuario, lo haremos
+			utilizando la URL a continuacion colocando al final el ID del Pokémon
+		</p>
+		<h4>Ejemplo:</h4>
+		<ol><a id='delete_by_id' href="javascript: drop('delete_id_db/6934cba4-5444-44e7-95de-2621276040ff');"></a></ol>
+
+	</ol>
+
+	<button> <a href="/about">Go to About Page</a> </button>
+
+	
 
 	<script>
 		const  PORT = window.location.href // -> http://localhost:3000/
-		//const URL = `${PORT}api/pokemon/${props}`;
 
-		function url (props) {
+		const url = (props) => {
 			return `${PORT}api/pokemon/${props}`
 		}
 
-		document.getElementById('get_one_pokemon').innerText = url('get_one_pokemon/400');
+		document.getElementById('get_one_pokemon_number').innerText = url('get_one_pokemon/400');
+		document.getElementById('get_one_pokemon_name').innerText = url('get_one_pokemon/pikachu');
 		document.getElementById('get_several_pokemon').innerText = url('get_several_pokemon');
 		document.getElementById('get_several_pokemon/').innerText = url('get_several_pokemon?amount=10&start=400');
+		document.getElementById('get_all_custom_pokemon').innerText = url('get_all_custom_pokemon');
+		document.getElementById('post_custom_pokemon').innerText = url('post_custom_pokemon');
+		document.getElementById('delete_by_id').innerText = url('delete_id_db/6934cba4-5444-44e7-95de-2621276040ff');
+
+		const post = async (props) => {
+			const data = {
+				"name": "gatito",
+				"image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/18.png",
+				"hp": 84,
+				"attack": 100,
+				"defense": 100,
+				"specialAttack": 100,
+				"specialDefense": 100,
+				"speed": 100,
+				"height": 100,
+				"weight": 100,
+				"types": [ "normal", "water" ]
+			}
+
+			const aux = url(props)
+
+			try {
+				// Abrir una nueva pestaña en blanco
+				const newWindow = window.open(aux, '_blank');
+				newWindow.document.write(`<pre id='data'>${'<h1> Posting... </h1>'}</pre>`);
+
+        const response = await fetch(aux, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Convertir la respuesta a JSON
+        const responseData = await response.json();
+
+        // Escribir la respuesta en la nueva pestaña
+				const element = newWindow.document.getElementById('data')
+        element.innerHTML = `<json>${JSON.stringify(responseData, null, 2)}</json>`;
+			} catch (error) {
+					console.error('Error:', error);
+			}
+		}
+
+		const drop = async (props) => {
+			try {
+				const aux = url(props)
+				const newWindow = window.open(aux, '_blank');
+				newWindow.document.write(`<pre id='data'>${'<h1> Deleting.. </h1>'}</pre>`);
+				const response = await fetch(aux, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+				const responseData = await response.text();
+				const element = newWindow.document.getElementById('data')
+        element.innerHTML = `<h1>${responseData}</h1>`;
+				// newWindow.document.write(`<pre>${"La informacion ha sido borrada con exito"}</pre>`);
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		}
 
 	</script>
-</body>
+
+<style>
+	body {
+		background-color: black;
+		color: white;
+	}
+	p {
+		display: flex;
+		flex-direction: column;
+	}
+	</style>
 </html>

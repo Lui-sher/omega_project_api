@@ -330,7 +330,7 @@ const deletePokemonByIdDb = async (req, res) => {
         id
       }
     })
-    res.send('Data borrada con exito')
+    res.send(`La informacion del Pokémon con la ID:${id} ha sido eliminada de la base de datos`)
   } catch (error) {
     res
     .status(500)
