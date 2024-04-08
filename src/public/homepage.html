@@ -8,50 +8,60 @@
 </head>
 
 <body>
-	<h1>Omega Project Home Page Back-end</h1>
+	<h1>Omega Project Home Page Data Base API Rest</h1>
+	<a href="/about">About Page</a>
 	<h3>GET Requests</h3>
 
-		<ol>
-			<p>
-				Para hacer una ca get que nos permita obtener los datos de un pokemon especifico,
-				lo haremos usando la siguente URL y el numero de pokedex o nombre del pokemon al final de esta.
-			</p>
-			<h4>Ejemplos:</h4>
-			<ol><a id='get_one_pokemon_number' href="javascript: window.open(url('get_one_pokemon/400'));"></a></ol>
-			<ol><a id='get_one_pokemon_name' href="javascript: window.open(url('get_one_pokemon/pikachu'));"></a></ol>
-		</ol>
-		<ol>
-			<p>
-				Si deseamos hacer una peticion get que nos permita obtener los 20 primeros 
-				pokemon, lo haremos ando la siguiente URL.
-			</p>
-			<a id='get_several_pokemon' href="javascript: window.open(url('get_several_pokemon'));"></a>
-		</ol>
-		<ol>
-			<p>
-				Pero si lo que buscamos es hacer una peticion get para obtener una cantidad y un rango
-				especifico, lo haremos ando la URL siguente, sustituyendo los valores numericos
-				de "amount" que representa la cantidad que deseamos y "start" que representa desde donde 
-				iniciamos el rango deseado.
-			</p>
-			<h4>Ejemplo:</h4>
-			<ol><a id='get_several_pokemon/' href="javascript: window.open(url('get_several_pokemon?amount=10&start=400'));"></a></ol>
-		</ol>
+		<ul>
+			<li>
+				<p>
+					Para hacer una peticion GET que nos permita obtener los datos de un pokemon especifico,
+					lo haremos usando la siguente URL y el numero de pokedex o nombre del pokemon al final de esta.
+				</p>
+				<h4>Ejemplos:</h4>
+				<a id='get_one_pokemon_number' href="javascript: window.open(url('get_one_pokemon/400'));"></a>
+				<p><a id='get_one_pokemon_name' href="javascript: window.open(url('get_one_pokemon/pikachu'));"></a></p>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<p>
+					Si deseamos hacer una peticion GET que nos permita obtener los 20 primeros 
+					Pokémon, lo haremos usando la siguiente URL.
+				</p>
+				<a id='get_several_pokemon' href="javascript: window.open(url('get_several_pokemon'));"></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<p>
+					Pero si lo que buscamos es hacer una peticion GET para obtener una cantidad y un rango
+					especifico, lo haremos usando la siguente URL, sustituyendo los valores numericos
+					de "amount" que representa la cantidad que deseamos y "start" que representa desde donde 
+					iniciaremos.
+				</p>
+				<h4>Ejemplo:</h4>
+				<a id='get_several_pokemon/' href="javascript: window.open(url('get_several_pokemon?amount=10&start=400'));"></a>
+			</li>
+		</ul>
 
-		<ol>
-			<p>
-				Si necesitamos obtener todos los Pokémon creados por el usuario, lo deberemos hacer ando
-				la siguente URL:
-			</p>
-			<a id='get_all_custom_pokemon' href="javascript: window.open(url('get_all_custom_pokemon'));"></a>
-		</ol>
+		<ul>
+			<li>
+				<p>
+					Si necesitamos obtener todos los Pokémon creados por el usuario, lo deberemos hacer usando
+					la siguente URL:
+				</p>
+				<a id='get_all_custom_pokemon' href="javascript: window.open(url('get_all_custom_pokemon'));"></a>
+			</li>
+		</ul>
 
 
 	<h3>POST Requests</h3>
-		<ol>
+	<ul>
+		<li>
 			<p>
-				Para enviar una solitud post, con intencion de crear un nuevo pokemon, se deberá enviar los datos
-				en el 'body' en formato '.json' a la siguiente URL con la estructura acontinuacion como ejemplo:
+				Para enviar una solitud POST con intencion de crear un nuevo Pokémon, se deberá enviar los datos
+				en el 'body' en formato '.json' a la siguiente URL con la estructura acontinuacion, ejemplo:
 			</p>
 			<a id='post_custom_pokemon' href="javascript: post('post_custom_pokemon');"></a>
 			<p>{</p>
@@ -67,23 +77,22 @@
 			<ol>"weight": 100,</ol>
 			<ol>"types": [ "normal", "water" ]</ol>
 			<p>}</p>
-		</ol>
+		</li>
+	</ul>
+
 
 
 	<h3>DELETE Requests</h3>
-	<ol>
-		<p>
-			Para eliminar algun Pokémon que se halle en la base de datos, ya sea original o creado por algun usuario, lo haremos
-			utilizando la URL a continuacion colocando al final el ID del Pokémon
-		</p>
-		<h4>Ejemplo:</h4>
-		<ol><a id='delete_by_id' href="javascript: drop('delete_id_db/6934cba4-5444-44e7-95de-2621276040ff');"></a></ol>
-
-	</ol>
-
-	<button> <a href="/about">Go to About Page</a> </button>
-
-	
+	<ul>
+		<li>
+			<p>
+				Para eliminar algun Pokémon que se halle en la base de datos, ya sea original o creado por algun usuario, lo haremos
+				utilizando la URL a continuacion, colocando al final el ID del Pokémon
+			</p>
+			<h4>Ejemplo:</h4>
+			<a id='delete_by_id' href="javascript: drop('delete_id_db/6934cba4-5444-44e7-95de-2621276040ff');"></a>
+	</li>
+</ul>
 
 	<script>
 		const  PORT = window.location.href // -> http://localhost:3000/
@@ -169,8 +178,7 @@
 		color: white;
 	}
 	p {
-		display: flex;
-		flex-direction: column;
+		max-width: 600px;
 	}
 	</style>
 </html>

@@ -344,11 +344,19 @@ const deletePokemonByIdDb = async (req, res) => {
 const deletePokemonByDexNumDb = async (req, res) => {
   try {
     const { dexNum } = req.params
-    await pokemon.destroy({
-      where: {
-        dexNum
-      }
-    })
+		if(dexNum == 'null'){
+			await pokemon.destroy({
+				where: {
+					custom: true,
+				}
+			})
+		} else {
+			await pokemon.destroy({
+				where: {
+					dexNum,
+				}
+    	})
+		}
     res.send(`Pokemon con Numero de pokedex: ${dexNum} ha sido borrado con exito`)
   } catch (error) {
     res
@@ -363,6 +371,6 @@ module.exports = {
   getAllCustomPokemon,
 	addPokemonToDb,
 	postCustomPokemon,
-  deletePokemonByIdDb,
-  deletePokemonByDexNumDb,
+	deletePokemonByIdDb,
+	deletePokemonByDexNumDb,
 }
