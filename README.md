@@ -11,8 +11,8 @@
 					lo haremos usando la siguente URL y el numero de pokedex o nombre del pokemon al final de esta.
 				</p>
 				<h4>Ejemplos:</h4>
-				<a id='get_one_pokemon_number' href="javascript: window.open(url('get_one_pokemon/400'));"></a>
-				<p><a id='get_one_pokemon_name' href="javascript: window.open(url('get_one_pokemon/pikachu'));"></a></p>
+				https://proyectomega-production.up.railway.app/api/pokemon/get_one_pokemon/400
+				https://proyectomega-production.up.railway.app/api/pokemon/get_one_pokemon/pikachu
 			</li>
 		</ul>
 		<ul>
@@ -21,7 +21,7 @@
 					Si deseamos hacer una peticion GET que nos permita obtener los 20 primeros 
 					Pokémon, lo haremos usando la siguiente URL.
 				</p>
-				<a id='get_several_pokemon' href="javascript: window.open(url('get_several_pokemon'));"></a>
+				https://proyectomega-production.up.railway.app/api/pokemon/get_several_pokemon
 			</li>
 		</ul>
 		<ul>
@@ -33,7 +33,7 @@
 					iniciaremos.
 				</p>
 				<h4>Ejemplo:</h4>
-				<a id='get_several_pokemon/' href="javascript: window.open(url('get_several_pokemon?amount=10&start=400'));"></a>
+				https://proyectomega-production.up.railway.app/api/pokemon/get_several_pokemon?amount=10&start=400
 			</li>
 		</ul>
 		<ul>
@@ -42,7 +42,7 @@
 					Si necesitamos obtener todos los Pokémon creados por el usuario, lo deberemos hacer usando
 					la siguente URL:
 				</p>
-				<a id='get_all_custom_pokemon' href="javascript: window.open(url('get_all_custom_pokemon'));"></a>
+				https://proyectomega-production.up.railway.app/api/pokemon/get_all_custom_pokemon
 			</li>
 		</ul>
   
@@ -53,7 +53,7 @@
 				Para enviar una solitud POST con intencion de crear un nuevo Pokémon, se deberá enviar los datos
 				en el 'body' en formato '.json' a la siguiente URL con la estructura acontinuacion, ejemplo:
 			</p>
-			<a id='post_custom_pokemon' href="javascript: post('post_custom_pokemon');"></a>
+			https://proyectomega-production.up.railway.app/api/pokemon/post_custom_pokemon
 			<p>{</p>
 			<ol>"name": "gatito",</ol>
 			<ol>"image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/18.png",</ol>
@@ -81,7 +81,7 @@
 				continuacion, colocando al final el ID del Pokémon
 			</p>
 			<h4>Ejemplo:</h4>
-			<a id='delete_by_id' href="javascript: drop('delete_id_db/6934cba4-5444-44e7-95de-2621276040ff');"></a>
+			https://proyectomega-production.up.railway.app/api/pokemon/delete_id_db/6934cba4-5444-44e7-95de-2621276040ff
 	</li>
 </ul>
 
