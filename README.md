@@ -1,8 +1,6 @@
- - Proyecto API REST Data base
+ - <h1> Proyecto API REST Data base </h1>
 
    Alojado en la direccion web  https://proyectomega-production.up.railway.app
-
-   	<h1>Omega Project Home Page Data Base API Rest</h1>
 	<h3>GET Requests</h3>
 		<ul>
 			<li>
@@ -12,6 +10,7 @@
 				</p>
 				<h4>Ejemplos:</h4>
 				https://proyectomega-production.up.railway.app/api/pokemon/get_one_pokemon/400
+				</br>
 				https://proyectomega-production.up.railway.app/api/pokemon/get_one_pokemon/pikachu
 			</li>
 		</ul>
