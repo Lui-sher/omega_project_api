@@ -3,9 +3,7 @@
    Alojado en la direccion web  https://proyectomega-production.up.railway.app
 
    	<h1>Omega Project Home Page Data Base API Rest</h1>
-	<a href="/about">About Page</a>
 	<h3>GET Requests</h3>
-
 		<ul>
 			<li>
 				<p>
@@ -38,7 +36,6 @@
 				<a id='get_several_pokemon/' href="javascript: window.open(url('get_several_pokemon?amount=10&start=400'));"></a>
 			</li>
 		</ul>
-
 		<ul>
 			<li>
 				<p>
@@ -48,8 +45,7 @@
 				<a id='get_all_custom_pokemon' href="javascript: window.open(url('get_all_custom_pokemon'));"></a>
 			</li>
 		</ul>
-
-
+  
 	<h3>POST Requests</h3>
 	<ul>
 		<li>
