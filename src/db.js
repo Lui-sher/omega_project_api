@@ -5,9 +5,9 @@ const Pokemon_Type = require("./models/Pokemon_Type.js");
 
 require('dotenv').config();
 
-const { PGDATABASE_URL } = process.env;
+const { PGDATABASE_URL, NEON_PGDATABASE_URL } = process.env;
 
-const sequelize = new Sequelize( PGDATABASE_URL, {
+const sequelize = new Sequelize( NEON_PGDATABASE_URL, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });

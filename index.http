@@ -4,7 +4,7 @@ GET http://localhost:3000/api/pokemon/get_one_pokemon/gatito
 GET http://localhost:3000/api/pokemon/get_several_pokemon
 
 ###
-GET http://localhost:3000/api/pokemon/get_several_pokemon?amount=10&start=400
+GET http://localhost:3000/api/pokemon/get_several_pokemon?amount=1050&start=1
 
 ###
 GET http://localhost:3000/api/pokemon/add_one_pokemon_to_db/1
@@ -22,14 +22,14 @@ GET http://localhost:3000/dbConnection/drop
 DELETE http://localhost:3000/api/pokemon/delete_dexnum_db/null
 
 ###
-DELETE http://localhost:3000/api/pokemon/delete_id_db/6934cba4-5444-44e7-95de-2621276040ff
+DELETE http://localhost:3000/api/pokemon/delete_id_db/daadcf22-deb2-41db-8768-2e03c3da0bc3
 
 ###
 POST http://localhost:3000/api/pokemon/post_custom_pokemon
 content-type: application/json
 
 {
-  "name": "pepito",
+  "name": "pollito",
 	"image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/18.png",
 	"hp": 84,
 	"attack": 100,
